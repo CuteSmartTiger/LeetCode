@@ -41,3 +41,4 @@ class Solution:
 
 a=Solution()
 print(a.nextPermutation(L))
+
