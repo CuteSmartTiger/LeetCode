@@ -28,9 +28,15 @@ class Solution:
                 # print(val)
             else:
                 break
+            print('before')
             self.backtrack(candidates, target - candidates[i], i,val)
-            val.pop()
+            print('after')
+            # 由于递归嵌套，当target为0时，break跳出循环，同时也不会去执行for循
+            # 环里的递归函数，然后从多层嵌套函数中逐级退出，执行pop函数
+            print(val.pop())
+            return 'ok'
 
+# 技巧：使用before与after来辅助理解
 
 C=Solution()
 C.combinationSum(candidates = [2,3,5],target = 8)
