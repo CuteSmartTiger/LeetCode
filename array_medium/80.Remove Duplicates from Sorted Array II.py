@@ -10,7 +10,7 @@ class Solution:
         L = len(nums)
         dup = 0
         tmp = nums[0]
-        for i in range(1,L):
+        for i in range(1, L):
             if nums[i] == tmp:
                 dup += 1
             else:
@@ -19,7 +19,8 @@ class Solution:
             if dup >= 2:
                 nums[i] = '#'
 
-        for i in range(L-1, -1, -1):
+        for i in range(L - 1, -1, -1):
             if nums[i] == '#':
                 nums.pop(i)
         return len(nums)
+
