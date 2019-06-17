@@ -10,4 +10,5 @@
 def simplify_path(path):
     stack = []
     if not path.startswith(r'/'):
+        pass
 
