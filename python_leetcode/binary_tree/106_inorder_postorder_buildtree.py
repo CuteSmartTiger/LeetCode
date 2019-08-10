@@ -17,6 +17,7 @@ class TreeNode:
         self.left = None
         self.right = None
 
+# 分治法  递归
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
         assert len(inorder) == len(postorder)
