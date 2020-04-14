@@ -7,13 +7,22 @@
 # @Software: PyCharm
 # @github  :https://github.com/Max-Liuhu
 
+
 class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
 
+    def output(self):
+        print_list = []
+        cur = self
+        while cur:
+            print_list.append(cur.val)
+            cur = cur.next
+        return print_list
 
-def rotate_right_error(head, k):
+
+def rotate_right1(head, k):
     """error"""
     # 空链表再怎么移动也是空
     if not head or not head.next:
@@ -29,13 +38,15 @@ def rotate_right_error(head, k):
     while cur:
         n += 1
         cur = cur.next
+    print(n)
 
     left = right = pre_head
     # 取模
     move_k = k % n
     while move_k:
+        print(move_k)
         right = right.next
-        move_k = -1
+        move_k -= 1
 
     while right and right.next:
         left = left.next
@@ -49,6 +60,33 @@ def rotate_right_error(head, k):
     right.next = pre_head.next
 
     return new_head
+
+
+import unittest
+
+
+class TestRotateRight(unittest.TestCase):
+    node5 = ListNode(5)
+    node4 = ListNode(4)
+    node3 = ListNode(3)
+    node2 = ListNode(2)
+    node1 = ListNode(1)
+    node1.next = node2
+    node2.next = node3
+    node3.next = node4
+    node4.next = node5
+    k = 2
+
+    def setUp(self):
+        pass
+
+    def test_print(self):
+        print(self.node1.output())
+
+    def test_rotate_right(self):
+        rotate_link = rotate_right(self.node1, 2)
+        self.assertEqual((rotate_link.output()), [4, 5, 1, 2, 3])
+        self.assertEqual((rotate_right(rotate_link, 0).output()), [4, 5, 1, 2, 3])
 
 
 # 1.遍历第一遍，求出链表长度，并获得最后一个节点。
