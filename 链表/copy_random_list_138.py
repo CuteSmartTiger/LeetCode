@@ -40,6 +40,40 @@ def copy_random_list_1(head):
     return node_hash[head]
 
 
+# 复制 然后拆分 O(1)复杂度
+def copy_random_list(head):
+    if not head:
+        return head
+
+    # 插入复制的节点
+    cur = head
+    while cur:
+        next_node = cur.next
+        cur.next = Node(cur.val)
+        cur.next.next = next_node
+        cur = next_node
+
+    # 往复制节点中关联random信息
+    cur = head
+    while cur:
+        # 注意random指向空节点时
+        if cur.random:
+            cur.next.random = cur.random.next
+        cur = cur.next.next
+
+    # 拆开，注意最后两的拆分，对空节点的处理
+    cur = head
+    copy_head = cur_copy = cur.next
+    while cur_copy.next:
+        cur.next = cur.next.next
+        cur = cur.next
+
+        cur_copy.next = cur_copy.next.next
+        cur_copy = cur_copy.next
+
+    cur.next = cur_copy.next
+    return copy_head
+
 # BFS
 
 # DFS
