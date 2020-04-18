@@ -31,5 +31,7 @@ def remove_nth_from_end(head, n):
         left = left.next
         right = right.next
 
+    # while循环时对right.next判断
+    # 是防止K为0时 此处删除节点报错
     left.next = left.next.next
     return pre_head.next
