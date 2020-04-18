@@ -38,3 +38,18 @@ def merge_two_lists(l1, l2):
     # cur.next = l1 if l1 is not None else l2
 
     return pre_head.next
+
+
+# 递归的方法
+def merge_two_lists_recursion(l1, l2):
+    if not l1:
+        return l2
+    if not l2:
+        return l1
+
+    if l1.val <= l2.val:
+        l1.next = merge_two_lists_recursion(l1.next, l2)
+        return l1
+    else:
+        l2.next = merge_two_lists_recursion(l2.next, l1)
+        return l2
