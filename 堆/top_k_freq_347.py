@@ -8,6 +8,8 @@
 # @github  :https://github.com/Max-Liuhu
 
 
+# 时间复杂度 : O(Nlogk)。
+# 空间复杂度 : {O(k)，用于存储堆元素
 # 用python内置堆函数
 def top_k_frequent(nums, k):
     freq_dict = {}
