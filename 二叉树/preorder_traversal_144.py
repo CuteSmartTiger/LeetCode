@@ -8,13 +8,6 @@
 # @github  :https://github.com/Max-Liuhu
 
 
-class TreeNode:
-    def __init__(self, x, left_node=None, right_node=None):
-        self.val = x
-        self.left = left_node
-        self.right = right_node
-
-
 class Solution:
     def preorder_traversal_iter(self, root):
         if not root:
@@ -46,6 +39,13 @@ class Solution:
 import unittest
 
 
+class TreeNode:
+    def __init__(self, x, left_node=None, right_node=None):
+        self.val = x
+        self.left = left_node
+        self.right = right_node
+
+
 class TestRotateRight(unittest.TestCase):
     def setUp(self):
         self.s = Solution()
@@ -61,9 +61,8 @@ class TestRotateRight(unittest.TestCase):
 
     def test_preorder_traversal_iter(self):
         pre_order = self.s.preorder_traversal_iter(self.binary_tree)
-        self.assertEqual(pre_order,[1, -1, 2, 3, 4])
+        self.assertEqual(pre_order, [1, -1, 2, 3, 4])
 
     def test_preorder_traversal_recursion(self):
         pre_order = self.s.preorder_traversal_recursion(self.binary_tree)
         self.assertEqual(pre_order, [1, -1, 2, 3, 4])
-
