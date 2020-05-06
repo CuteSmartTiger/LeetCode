@@ -46,18 +46,35 @@ class Solution:
             p = p.right
         return True
 
-    def is_ValidBST_inorder(self, root: TreeNode) -> bool:
+    def is_valid_bst_in_order(self, root):
         res = []
 
-        def inorder(node):
+        def in_order(node):
             if node is None:
                 return
-            inorder(node.left)
+            in_order(node.left)
             res.append(node.val)
-            inorder(node.right)
+            in_order(node.right)
 
-        inorder(root)
+        in_order(root)
         for i in range(len(res) - 1):
             if res[i + 1] <= res[i]:
                 return False
         return True
+
+    def is_valid_bst_by_recursion_one(self, root):
+        def in_order(node, res=None):
+            if not node:
+                return
+            if res is None:
+                res = []
+            in_order(node.left, res=res)
+            res.append(node.val)
+            in_order(node.right, res=res)
+
+        ret = []
+        in_order(root, res=ret)
+        if sorted(ret) == ret and len(set(ret)) == len(ret):
+            return True
+        else:
+            return False
