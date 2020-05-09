@@ -22,7 +22,7 @@ class TreeNode:
             res.append(str(cur.val)) if cur else res.append('None')
             if cur:
                 queue.extend([cur.left, cur.right])
-        return ','.join( res)
+        return ','.join(res)
 
 
 class Solution:
@@ -74,7 +74,7 @@ class Solution:
 import unittest
 
 
-class TestRotateRight(unittest.TestCase):
+class TestDeleteNode(unittest.TestCase):
     def setUp(self):
         self.s = Solution()
         self.node7 = TreeNode(7)
@@ -87,6 +87,6 @@ class TestRotateRight(unittest.TestCase):
     def test_print(self):
         print(self.root)
 
-    def test_lowest_common_ancestor(self):
+    def test_delete_node(self):
         node = self.s.delete_node(self.root, 7)
         print(node)
