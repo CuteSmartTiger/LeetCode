@@ -7,6 +7,7 @@
 # @Software: PyCharm
 # @github  :https://github.com/Max-Liuhu
 
+
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -15,8 +16,40 @@ class TreeNode:
 
 
 class Solution:
-    # 递归
-    def levelOrder(self, root: TreeNode, level=None, res=None) -> List[List[int]]:
+    # 解法一：利用双指针，方法三的优化，因为之前需要针对每层的节点再次遍历
+    # 利用双指针，更新层级，减少遍历次数
+    def level_order_two_point(self, root):
+        if not root:
+            return []
+
+        from collections import deque
+        q = deque()
+        q.append(root)
+        # last 当前行的最右节点，用来判断换行
+        # nlast 下一行的最新节点
+        last = root
+        nlast = root
+        res = []
+        next_res = []
+        while len(q) > 0:
+            node = q.popleft()
+            next_res.append(node.val)
+            if node.left:
+                q.append(node.left)
+                nlast = node.left
+
+            if node.right:
+                q.append(node.right)
+                nlast = node.right
+
+            if node == last:
+                res.append(next_res)
+                last = nlast
+                next_res = []
+        return res
+
+    # 解法二：递归
+    def levelOrder(self, root: TreeNode, level=None, res=None):
         if not root:
             return []
         if level is None:
@@ -30,7 +63,7 @@ class Solution:
         self.levelOrder(root.right, level=level + 1, res=res)
         return res
 
-    #  迭代 列表
+    # 解法三： 迭代 列表
     def level_order_iter(self, root):
         if not root:
             return []
@@ -49,7 +82,7 @@ class Solution:
             cur_level = next_level
         return res
 
-    # 双端队列
+    # 解法四 双端队列
     def level_order_deque(self, root):
         from collections import deque
         if not root:
@@ -73,24 +106,23 @@ class Solution:
             level_list.insert(i, v)
         return level_list
 
-    # 迭代 元组
-    def level_order_with_stack(self, root):
+    # 解法五  迭代 元组,相比用栈  更好的是用队列 先进先出
+    def level_order_with_q(self, root):
         if not root:
             return []
-        stack = [(0, root)]
+        q = [(0, root)]
         level_visited = {}
-        while stack:
-            level, node = stack[0]
+        while q:
+            level, node = q.pop(0)
             if level not in level_visited:
                 level_visited[level] = [node.val]
             else:
                 level_visited[level].append(node.val)
             if node.left:
-                stack.append((level + 1, node.left))
+                q.append((level + 1, node.left))
 
             if node.right:
-                stack.append((level + 1, node.right))
-            stack = stack[1:]
+                q.append((level + 1, node.right))
         level_list = []
         for i, v in level_visited.items():
             level_list.insert(i, v)
