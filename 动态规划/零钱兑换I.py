@@ -26,7 +26,7 @@ class Coins(object):
         if index == len(coins):
             if target == 0:
                 return 1
-            elif target != 0:
+            else:
                 return 0
         else:
             i = 0
