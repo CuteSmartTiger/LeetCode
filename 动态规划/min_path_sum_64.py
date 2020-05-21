@@ -9,6 +9,28 @@
 
 
 class Solution:
+
+    @staticmethod
+    def min_path_sum_one(grid):
+        # 自顶向下
+        import functools
+        if not grid:
+            return 0
+        row = len(grid)
+        col = len(grid[0])
+
+        @functools.lru_cache(None)
+        def helper(i, j):
+            if i == row - 1 and j == col - 1:
+                return grid[i][j]
+            if i >= row or j >= col:
+                return float("inf")
+            tmp = 0
+            tmp += grid[i][j] + min(helper(i, j + 1), helper(i + 1, j))
+            return tmp
+
+        return helper(0, 0)
+
     @staticmethod
     def min_path_sum(grid):
         # 不可以在原表上修改
