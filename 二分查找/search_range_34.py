@@ -47,7 +47,7 @@ class Solution:
 
 
 class Solution:
-    def searchRange(self, nums: List[int], target: int) -> List[int]:
+    def searchRange(self, nums, target):
         if not nums:
             return [-1, -1]
 
