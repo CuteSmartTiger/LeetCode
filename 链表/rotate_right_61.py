@@ -9,106 +9,90 @@
 
 
 class ListNode:
-    def __init__(self, x):
+    def __init__(self, x, nex=None):
         self.val = x
-        self.next = None
+        self.next = nex
 
     def output(self):
-        print_list = []
+        output = []
+        append = output.append
         cur = self
         while cur:
-            print_list.append(cur.val)
+            append(cur.val)
             cur = cur.next
-        return print_list
+        return output
 
 
-def rotate_right1(head, k):
-    """error"""
-    # 空链表再怎么移动也是空
-    if not head or not head.next:
-        return head
+class Methods(object):
+    @classmethod
+    def methods(cls):
+        test_methods = []
+        append = test_methods.append
+        for attr in dir(cls):
+            if attr.startswith("__") or attr.endswith("__") or attr == 'methods':
+                continue
+            if callable(getattr(cls, attr)):
+                append(attr)
+        return test_methods
 
-    # 快慢指针，然后左截断，右指向头部
-    pre_head = ListNode(0)
-    pre_head.next = head
 
-    # 获取链表的长度
-    n = 0
-    cur = head
-    while cur:
-        n += 1
-        cur = cur.next
-    print(n)
+class Solution(Methods):
+    def rotate_right(self, head, k):
+        if not head or not head.next:
+            return head
 
-    left = right = pre_head
-    # 取模
-    move_k = k % n
-    while move_k:
-        print(move_k)
-        right = right.next
-        move_k -= 1
+        # 计算长度
+        n = 1
+        tail = head
+        while tail and tail.next:
+            n += 1
+            tail = tail.next
+        # tail 为链表的尾节点
 
-    while right and right.next:
-        left = left.next
-        right = right.next
+        # 取模,计算要移动的节点数
+        m = n - k % n
 
-    # 新链表头部
-    new_head = left.next
-    # 截断
-    left.next = right.next
-    # 指向旧头部
-    right.next = pre_head.next
+        # 取模为0时 不用旋转，此处做个优化
+        if m == n:
+            return head
 
-    return new_head
+        cur = head
+        while m > 1:
+            cur = cur.next
+            m -= 1
+        new_head = cur.next
+        cur.next = None
+
+        tail.next = head
+        return new_head
 
 
 import unittest
 
 
-class TestRotateRight(unittest.TestCase):
-    node5 = ListNode(5)
-    node4 = ListNode(4)
-    node3 = ListNode(3)
-    node2 = ListNode(2)
-    node1 = ListNode(1)
-    node1.next = node2
-    node2.next = node3
-    node3.next = node4
-    node4.next = node5
-    k = 2
+class TestSolution(unittest.TestCase):
+    node1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
+    node2 = None
+    node3 = ListNode(1)
 
     def setUp(self):
-        pass
+        self.s = Solution()
+        self.nodes_input_to_output = [
+            (self.node1, 3, [3, 4, 5, 1, 2]),
+            (self.node1, 8, [3, 4, 5, 1, 2]),
+            (self.node1, 1, [5,1, 2, 3, 4]),
+            (self.node2, 1, None),
+            (self.node3, 3, [1]),
+        ]
 
-    def test_print(self):
-        print(self.node1.output())
-
-    def test_rotate_right(self):
-        rotate_link = rotate_right(self.node1, 2)
-        self.assertEqual((rotate_link.output()), [4, 5, 1, 2, 3])
-        self.assertEqual((rotate_right(rotate_link, 0).output()), [4, 5, 1, 2, 3])
-
-
-# 1.遍历第一遍，求出链表长度，并获得最后一个节点。
-# 2.将链表首尾相接。
-# 3.题目中头结点是向前挪k%len次，但程序中只能往后挪，所以将头节点向后挪 len - (k%len) 次。
-# 4.断开链表，取回结果
-def rotate_right(head, k):
-    """
-    :type head: ListNode
-    :type k: int
-    :rtype: ListNode
-    """
-    if not (head and head.next):
-        return head
-    first = head
-    len_list = 1
-    while head.next:
-        len_list += 1
-        head = head.next
-    head.next = first
-    for i in range(len_list - k % len_list):
-        head = head.next
-    result = head.next
-    head.next = None
-    return result
+    def test_methods(self):
+        from itertools import product
+        from copy import deepcopy
+        for method, (node, k, output) in product(self.s.methods(), self.nodes_input_to_output):
+            test_node = deepcopy(node)
+            n = getattr(self.s, method)(test_node, k)
+            if n:
+                self.assertEqual(n.output(), output)
+                print(n.output(), output)
+            else:
+                print(n)
