@@ -7,6 +7,21 @@
 # @Software: PyCharm
 # @github  :https://github.com/Max-Liuhu
 
+class ListNode:
+    def __init__(self, x, nex=None):
+        self.val = x
+        self.next = nex
+
+    def output(self):
+        output = []
+        append = output.append
+        cur = self
+        while cur:
+            append(cur.val)
+            cur = cur.next
+        return output
+
+
 class Methods(object):
     @classmethod
     def methods(cls):
@@ -55,21 +70,6 @@ class Solution(Methods):
         return head
 
 
-class ListNode:
-    def __init__(self, x, nex=None):
-        self.val = x
-        self.next = nex
-
-    def output(self):
-        output = []
-        append = output.append
-        cur = self
-        while cur:
-            append(cur.val)
-            cur = cur.next
-        return output
-
-
 import unittest
 
 
@@ -94,6 +94,6 @@ class TestSolution(unittest.TestCase):
             n = getattr(self.s, method)(test_node, m, n)
             if n:
                 self.assertEqual(n.output(), output)
-                print(n.output(),output)
+                print(n.output(), output)
             else:
                 print(n)
