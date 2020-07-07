@@ -8,16 +8,28 @@
 # @github  :https://github.com/Max-Liuhu
 
 
-# hash
-def detect_cycle_by_set(head):
-    save_set = {None}
-    while head:
-        if head not in save_set:
-            save_set.add(head)
-            head = head.next
+class Solution:
+    def detect_cycle(self, head):
+        if not head:
+            return
+
+        slow = fast = head
+        has_cycle = False
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                has_cycle = True
+                break
+
+        if not has_cycle:
+            return
         else:
-            return head
-    return None
+            cur = head
+            while cur != slow:
+                cur = cur.next
+                slow = slow.next
+            return cur
 
 
 def detect_cycle(head):

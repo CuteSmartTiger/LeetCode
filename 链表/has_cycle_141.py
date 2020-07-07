@@ -14,16 +14,34 @@ class ListNode:
 
 
 # 使用快慢指针
-def has_cycle(head) -> bool:
-    # 快慢指针
-    if not head:
+class Solution:
+    def has_cycle(self, head):
+        if not head:
+            return False
+
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
         return False
-    slow = fast = head
-    while fast and fast.next:
-        slow = slow.next
-        fast = fast.next.next
-        if slow == fast:
+
+    def has_cycle_by_two_pointor(self, head):
+        if not head:
+            return False
+
+        if head == head.next:
             return True
-    return False
+
+        dummy = ListNode(1)
+        dummy.next = head
+        slow = fast = dummy
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
 
 
