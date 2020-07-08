@@ -95,3 +95,35 @@ def add_two_numbers(l1, l2):
         temp = temp.next  # 指针指向下一个节点
 
     return ans
+
+
+class Solution:
+    def add_two_numbers(self, l1, l2):
+        if not l1:
+            return l2
+        elif not l2:
+            return l1
+        else:
+            nex = 0
+            v = 0
+            dummy = ListNode(-1)
+            cur = dummy
+            while l1 or l2:
+                v = nex
+                if l1:
+                    v += l1.val
+                    l1 = l1.next
+
+                if l2:
+                    v += l2.val
+                    l2 = l2.next
+
+                nex = v // 10
+                v = v % 10
+                cur.next = ListNode(v)
+                cur = cur.next
+
+            if nex:
+                cur.next = ListNode(nex)
+
+            return dummy.next
