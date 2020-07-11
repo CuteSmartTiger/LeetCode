@@ -74,6 +74,32 @@ def copy_random_list(head):
     cur.next = cur_copy.next
     return copy_head
 
-# BFS
 
-# DFS
+class Solution:
+    def copy_random_list(self, head):
+        if not head:
+            return head
+
+        cur = head
+        while cur:
+            temp = cur.next
+            cur.next = Node(cur.val, temp)
+            cur = cur.next.next
+
+        cur = head
+        while cur:
+            if cur.random:
+                cur.next.random = cur.random.next
+            cur = cur.next.next
+
+        cur = head
+        copy_head = copy_cur = cur.next
+        while cur:
+            cur.next = cur.next.next
+            cur = cur.next
+
+            if copy_cur.next:
+                copy_cur.next = copy_cur.next.next
+                copy_cur = copy_cur.next
+
+        return copy_head

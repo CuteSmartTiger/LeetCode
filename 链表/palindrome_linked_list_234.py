@@ -40,7 +40,8 @@ def is_palindrome_one(head):
 # 方法二 使用栈 O(N/2)，快慢指针
 
 
-# 方法三 中点  反转后半部分，而不是前半部分(不考虑改变原链表的前提下)
+# 方法三 中点  反转后半部分，而不是
+# 前半部分(不考虑改变原链表的前提下)
 # 时间复杂度: O(N); 空间复杂度: O(1)
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
