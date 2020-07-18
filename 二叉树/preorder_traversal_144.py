@@ -9,6 +9,29 @@
 
 
 class Solution:
+
+    def pre_order_traversal(self, root):
+        # 这个方法通用性很高
+        if not root:
+            return []
+        pre_visited = []
+        stack = [root]
+        while stack:
+            node = stack[-1]
+            stack.pop()
+            if node is not None:
+                if node.right:
+                    stack.append(node.right)
+                if node.left:
+                    stack.append(node.left)
+
+                stack.append(node)
+                stack.append(None)
+            else:
+                pre_visited.append(stack.pop().val)
+
+        return pre_visited
+
     def preorder_traversal_iter(self, root):
         if not root:
             return []
