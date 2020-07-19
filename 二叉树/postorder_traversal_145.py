@@ -15,6 +15,29 @@ class TreeNode:
 
 
 class Solution:
+    def post_order(self, root):
+        if not root:
+            return []
+        visited = []
+        stack = [root]
+        while stack:
+            node = stack[-1]
+            stack.pop()
+            if node is not None:
+
+                stack.append(node)
+                stack.append(None)
+
+                if node.right:
+                    stack.append(node.right)
+                if node.left:
+                    stack.append(node.left)
+
+            else:
+                visited.append(stack.pop().val)
+
+        return visited
+
     # 迭代  标记
     def postorder_traversal(self, root: TreeNode):
         if not root:

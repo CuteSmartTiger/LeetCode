@@ -8,21 +8,44 @@
 # @github  :https://github.com/Max-Liuhu
 
 
-# 使用迭代的方法(需要二刷)
-def inorder_traversal_iter(root):
-    if not root:
-        return []
-    cur = root
-    stack = []
-    inorder = []
-    while stack or cur:
-        while cur:
-            stack.append(cur)
-            cur = cur.left
-        cur = stack.pop()
-        inorder.append(cur.val)
-        cur = cur.right
-    return inorder
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        cur = root
+        stack = []
+        inorder = []
+        while stack or cur:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            cur = stack.pop()
+            inorder.append(cur.val)
+            cur = cur.right
+        return inorder
+
+    def inorder_tra(self, root):
+        if not root:
+            return []
+        pre_visited = []
+        stack = [root]
+        while stack:
+            node = stack[-1]
+            stack.pop()
+            if node is not None:
+                if node.right:
+                    stack.append(node.right)
+
+                stack.append(node)
+                stack.append(None)
+
+                if node.left:
+                    stack.append(node.left)
+
+            else:
+                pre_visited.append(stack.pop().val)
+
+        return pre_visited
 
 
 # 使用递归的方法
